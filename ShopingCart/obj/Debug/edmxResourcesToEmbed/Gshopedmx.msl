@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="gShopModelStoreContainer" CdmEntityContainer="gShopEntities">
+    <EntitySetMapping Name="Products">
+      <EntityTypeMapping TypeName="gShopModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="Pdt_Id" ColumnName="Pdt_Id" />
+          <ScalarProperty Name="Pdt_Name" ColumnName="Pdt_Name" />
+          <ScalarProperty Name="Pdt_BuyPrice" ColumnName="Pdt_BuyPrice" />
+          <ScalarProperty Name="Pdt_GST" ColumnName="Pdt_GST" />
+          <ScalarProperty Name="Pdt_SellPrice" ColumnName="Pdt_SellPrice" />
+          <ScalarProperty Name="Pdt_Discount" ColumnName="Pdt_Discount" />
+          <ScalarProperty Name="Pdt_PurchaseDate" ColumnName="Pdt_PurchaseDate" />
+          <ScalarProperty Name="Pdt_Quantity" ColumnName="Pdt_Quantity" />
+          <ScalarProperty Name="Pdt_Tax_Type" ColumnName="Pdt_Tax_Type" />
+          <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="Created_DateTime" ColumnName="Created_DateTime" />
+          <ScalarProperty Name="Updated_DateTime" ColumnName="Updated_DateTime" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

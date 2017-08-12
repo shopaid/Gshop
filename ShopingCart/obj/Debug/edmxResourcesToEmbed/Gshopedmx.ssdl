@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Pdt_Id" />
+    </Key>
+    <Property Name="Pdt_Id" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Pdt_Name" Type="varchar(max)" Nullable="false" />
+    <Property Name="Pdt_BuyPrice" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Pdt_GST" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Pdt_SellPrice" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="Pdt_Discount" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="Pdt_PurchaseDate" Type="date" />
+    <Property Name="Pdt_Quantity" Type="int" />
+    <Property Name="Pdt_Tax_Type" Type="bit" />
+    <Property Name="CreatedBy" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="Created_DateTime" Type="date" Nullable="false" />
+    <Property Name="Updated_DateTime" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityContainer Name="gShopModelStoreContainer">
+    <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

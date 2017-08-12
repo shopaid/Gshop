@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="gShopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Pdt_Id" />
+    </Key>
+    <Property Name="Pdt_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Pdt_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Pdt_BuyPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Pdt_GST" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Pdt_SellPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Pdt_Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Pdt_PurchaseDate" Type="DateTime" Precision="0" />
+    <Property Name="Pdt_Quantity" Type="Int32" />
+    <Property Name="Pdt_Tax_Type" Type="Boolean" />
+    <Property Name="CreatedBy" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Created_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Updated_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+  </EntityType>
+  <EntityContainer Name="gShopEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Products" EntityType="Self.Product" />
+  </EntityContainer>
+</Schema>
