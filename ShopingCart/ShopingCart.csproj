@@ -138,6 +138,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="DB\db.sql" />
     <Content Include="Gshopedmx.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Gshopedmx.edmx</DependentUpon>
