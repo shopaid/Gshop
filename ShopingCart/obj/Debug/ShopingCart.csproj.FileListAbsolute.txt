@@ -16,3 +16,15 @@ D:\Project\ShopingCart\ShopingCart\bin\Debug\EntityFramework.SqlServer.xml
 D:\Project\MyShop\ShopingCart\bin\Debug\ShopingCart.exe.config
 D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.exe
 D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.pdb
+D:\Project\MyShop\ShopingCart\bin\Debug\ShopingCart.exe
+D:\Project\MyShop\ShopingCart\bin\Debug\ShopingCart.pdb
+D:\Project\MyShop\ShopingCart\bin\Debug\EntityFramework.dll
+D:\Project\MyShop\ShopingCart\bin\Debug\EntityFramework.SqlServer.dll
+D:\Project\MyShop\ShopingCart\bin\Debug\EntityFramework.xml
+D:\Project\MyShop\ShopingCart\bin\Debug\EntityFramework.SqlServer.xml
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.csprojResolveAssemblyReference.cache
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.BillingSystem.Billing.resources
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.Form1.resources
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.Inventory.AddProduct.resources
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.Properties.Resources.resources
+D:\Project\MyShop\ShopingCart\obj\Debug\ShopingCart.csproj.GenerateResource.Cache

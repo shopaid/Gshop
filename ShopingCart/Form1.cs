@@ -13,6 +13,7 @@ namespace ShopingCart
 {
     public partial class Form1 : Form
     {
+       
         public Form1()
         {
             InitializeComponent();
@@ -21,8 +22,8 @@ namespace ShopingCart
         private void billingToolStripMenuItem1_Click(object sender, EventArgs e)
         {
 
-
-            Billing bill = new Billing();
+         
+           Billing bill = new Billing();
 
             bill.TopLevel = false;
             bill.AutoScroll = true;
@@ -35,7 +36,9 @@ namespace ShopingCart
         {
             panel1.Width = 3200;
             panel1.Height = 1200;
-
+            label1.Text = "GShop Application";
+            label1.Width = 200;
+           
             IsMdiContainer = true;
         }
 
