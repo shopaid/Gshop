@@ -17,8 +17,77 @@
     <Property Name="IsActive" Type="Boolean" Nullable="false" />
     <Property Name="Created_DateTime" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Updated_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Bill_Details" Relationship="gShopModel.FK_Bill_Details_Product" FromRole="Product" ToRole="Bill_Details" />
   </EntityType>
   <EntityContainer Name="gShopEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="Bills" EntityType="gShopModel.Bill" />
+    <EntitySet Name="Bill_Details" EntityType="gShopModel.Bill_Details" />
+    <AssociationSet Name="FK_Bill_Details_Bill_Details" Association="gShopModel.FK_Bill_Details_Bill_Details">
+      <End Role="Bill" EntitySet="Bills" />
+      <End Role="Bill_Details" EntitySet="Bill_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Details_Product" Association="gShopModel.FK_Bill_Details_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Bill_Details" EntitySet="Bill_Details" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="bill_Id" />
+    </Key>
+    <Property Name="bill_Id" Type="Int32" Nullable="false" />
+    <Property Name="customer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="customer_Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="customer_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="bill_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="pdt_Count" Type="Int32" />
+    <Property Name="pdt_QuantityCount" Type="Int32" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreateDateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Bill_Details" Relationship="gShopModel.FK_Bill_Details_Bill_Details" FromRole="Bill" ToRole="Bill_Details" />
+  </EntityType>
+  <EntityType Name="Bill_Details">
+    <Key>
+      <PropertyRef Name="bill_DetailsId" />
+    </Key>
+    <Property Name="bill_DetailsId" Type="Int32" Nullable="false" />
+    <Property Name="bill_Id" Type="Int32" Nullable="false" />
+    <Property Name="pdt_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="pdt_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="pdt_Rate" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="pdt_GST" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="pdt_Qauntity" Type="Int32" />
+    <Property Name="pdt_Discount" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="CreatedDateTime" Type="DateTime" Precision="0" />
+    <Property Name="UpdateDateTime" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Bill" Relationship="gShopModel.FK_Bill_Details_Bill_Details" FromRole="Bill_Details" ToRole="Bill" />
+    <NavigationProperty Name="Product" Relationship="gShopModel.FK_Bill_Details_Product" FromRole="Bill_Details" ToRole="Product" />
+  </EntityType>
+  <Association Name="FK_Bill_Details_Bill_Details">
+    <End Type="gShopModel.Bill" Role="Bill" Multiplicity="1" />
+    <End Type="gShopModel.Bill_Details" Role="Bill_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="bill_Id" />
+      </Principal>
+      <Dependent Role="Bill_Details">
+        <PropertyRef Name="bill_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Details_Product">
+    <End Type="gShopModel.Product" Role="Product" Multiplicity="0..1" />
+    <End Type="gShopModel.Bill_Details" Role="Bill_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Pdt_Id" />
+      </Principal>
+      <Dependent Role="Bill_Details">
+        <PropertyRef Name="pdt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

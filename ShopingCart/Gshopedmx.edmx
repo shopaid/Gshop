@@ -4,7 +4,38 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="gShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="gShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="bill_Id" />
+          </Key>
+          <Property Name="bill_Id" Type="int" Nullable="false" />
+          <Property Name="customer_Name" Type="varchar" MaxLength="100" />
+          <Property Name="customer_Mobile" Type="varchar" MaxLength="100" />
+          <Property Name="customer_Address" Type="varchar(max)" />
+          <Property Name="bill_Date" Type="date" Nullable="false" />
+          <Property Name="pdt_Count" Type="int" />
+          <Property Name="pdt_QuantityCount" Type="int" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="CreateDateTime" Type="date" Nullable="false" />
+          <Property Name="UpdateDateTime" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Bill_Details">
+          <Key>
+            <PropertyRef Name="bill_DetailsId" />
+          </Key>
+          <Property Name="bill_DetailsId" Type="int" Nullable="false" />
+          <Property Name="bill_Id" Type="int" Nullable="false" />
+          <Property Name="pdt_Id" Type="nvarchar" MaxLength="100" />
+          <Property Name="pdt_Name" Type="varchar" MaxLength="100" />
+          <Property Name="pdt_Rate" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="pdt_GST" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="pdt_Qauntity" Type="int" />
+          <Property Name="pdt_Discount" Type="numeric" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="bit" />
+          <Property Name="CreatedDateTime" Type="date" />
+          <Property Name="UpdateDateTime" Type="date" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Pdt_Id" />
@@ -23,8 +54,42 @@
           <Property Name="Created_DateTime" Type="date" Nullable="false" />
           <Property Name="Updated_DateTime" Type="date" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Bill_Details_Bill_Details">
+          <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+          <End Role="Bill_Details" Type="Self.Bill_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="bill_Id" />
+            </Principal>
+            <Dependent Role="Bill_Details">
+              <PropertyRef Name="bill_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Details_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="Bill_Details" Type="Self.Bill_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Pdt_Id" />
+            </Principal>
+            <Dependent Role="Bill_Details">
+              <PropertyRef Name="pdt_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="gShopModelStoreContainer">
+          <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bill_Details" EntityType="Self.Bill_Details" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Bill_Details_Bill_Details" Association="Self.FK_Bill_Details_Bill_Details">
+            <End Role="Bill" EntitySet="Bill" />
+            <End Role="Bill_Details" EntitySet="Bill_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Details_Product" Association="Self.FK_Bill_Details_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Bill_Details" EntitySet="Bill_Details" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -47,10 +112,79 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="Created_DateTime" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="Updated_DateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Bill_Details" Relationship="gShopModel.FK_Bill_Details_Product" FromRole="Product" ToRole="Bill_Details" />
         </EntityType>
         <EntityContainer Name="gShopEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="Bills" EntityType="gShopModel.Bill" />
+          <EntitySet Name="Bill_Details" EntityType="gShopModel.Bill_Details" />
+          <AssociationSet Name="FK_Bill_Details_Bill_Details" Association="gShopModel.FK_Bill_Details_Bill_Details">
+            <End Role="Bill" EntitySet="Bills" />
+            <End Role="Bill_Details" EntitySet="Bill_Details" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bill_Details_Product" Association="gShopModel.FK_Bill_Details_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Bill_Details" EntitySet="Bill_Details" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Bill">
+          <Key>
+            <PropertyRef Name="bill_Id" />
+          </Key>
+          <Property Name="bill_Id" Type="Int32" Nullable="false" />
+          <Property Name="customer_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Mobile" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="customer_Address" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="bill_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="pdt_Count" Type="Int32" />
+          <Property Name="pdt_QuantityCount" Type="Int32" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="CreateDateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="UpdateDateTime" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="Bill_Details" Relationship="gShopModel.FK_Bill_Details_Bill_Details" FromRole="Bill" ToRole="Bill_Details" />
+        </EntityType>
+        <EntityType Name="Bill_Details">
+          <Key>
+            <PropertyRef Name="bill_DetailsId" />
+          </Key>
+          <Property Name="bill_DetailsId" Type="Int32" Nullable="false" />
+          <Property Name="bill_Id" Type="Int32" Nullable="false" />
+          <Property Name="pdt_Id" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pdt_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="pdt_Rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="pdt_GST" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="pdt_Qauntity" Type="Int32" />
+          <Property Name="pdt_Discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="IsActive" Type="Boolean" />
+          <Property Name="CreatedDateTime" Type="DateTime" Precision="0" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="Bill" Relationship="gShopModel.FK_Bill_Details_Bill_Details" FromRole="Bill_Details" ToRole="Bill" />
+          <NavigationProperty Name="Product" Relationship="gShopModel.FK_Bill_Details_Product" FromRole="Bill_Details" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Bill_Details_Bill_Details">
+          <End Type="gShopModel.Bill" Role="Bill" Multiplicity="1" />
+          <End Type="gShopModel.Bill_Details" Role="Bill_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Bill">
+              <PropertyRef Name="bill_Id" />
+            </Principal>
+            <Dependent Role="Bill_Details">
+              <PropertyRef Name="bill_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bill_Details_Product">
+          <End Type="gShopModel.Product" Role="Product" Multiplicity="0..1" />
+          <End Type="gShopModel.Bill_Details" Role="Bill_Details" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Pdt_Id" />
+            </Principal>
+            <Dependent Role="Bill_Details">
+              <PropertyRef Name="pdt_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -73,6 +207,39 @@
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="Created_DateTime" ColumnName="Created_DateTime" />
                 <ScalarProperty Name="Updated_DateTime" ColumnName="Updated_DateTime" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bills">
+            <EntityTypeMapping TypeName="gShopModel.Bill">
+              <MappingFragment StoreEntitySet="Bill">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="pdt_QuantityCount" ColumnName="pdt_QuantityCount" />
+                <ScalarProperty Name="pdt_Count" ColumnName="pdt_Count" />
+                <ScalarProperty Name="bill_Date" ColumnName="bill_Date" />
+                <ScalarProperty Name="customer_Address" ColumnName="customer_Address" />
+                <ScalarProperty Name="customer_Mobile" ColumnName="customer_Mobile" />
+                <ScalarProperty Name="customer_Name" ColumnName="customer_Name" />
+                <ScalarProperty Name="bill_Id" ColumnName="bill_Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bill_Details">
+            <EntityTypeMapping TypeName="gShopModel.Bill_Details">
+              <MappingFragment StoreEntitySet="Bill_Details">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="pdt_Discount" ColumnName="pdt_Discount" />
+                <ScalarProperty Name="pdt_Qauntity" ColumnName="pdt_Qauntity" />
+                <ScalarProperty Name="pdt_GST" ColumnName="pdt_GST" />
+                <ScalarProperty Name="pdt_Rate" ColumnName="pdt_Rate" />
+                <ScalarProperty Name="pdt_Name" ColumnName="pdt_Name" />
+                <ScalarProperty Name="pdt_Id" ColumnName="pdt_Id" />
+                <ScalarProperty Name="bill_Id" ColumnName="bill_Id" />
+                <ScalarProperty Name="bill_DetailsId" ColumnName="bill_DetailsId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

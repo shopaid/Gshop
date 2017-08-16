@@ -14,6 +14,11 @@ namespace ShopingCart
     
     public partial class Product
     {
+        public Product()
+        {
+            this.Bill_Details = new HashSet<Bill_Details>();
+        }
+    
         public string Pdt_Id { get; set; }
         public string Pdt_Name { get; set; }
         public Nullable<decimal> Pdt_BuyPrice { get; set; }
@@ -27,5 +32,7 @@ namespace ShopingCart
         public bool IsActive { get; set; }
         public System.DateTime Created_DateTime { get; set; }
         public System.DateTime Updated_DateTime { get; set; }
+    
+        public virtual ICollection<Bill_Details> Bill_Details { get; set; }
     }
 }

@@ -58,11 +58,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bill.cs">
+      <DependentUpon>Gshopedmx.tt</DependentUpon>
+    </Compile>
     <Compile Include="BillingSystem\Billing.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="BillingSystem\Billing.Designer.cs">
       <DependentUpon>Billing.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Bill_Details.cs">
+      <DependentUpon>Gshopedmx.tt</DependentUpon>
     </Compile>
     <Compile Include="Business\Inventory.cs" />
     <Compile Include="Entity\InventoryEntity.cs" />

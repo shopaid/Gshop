@@ -20,5 +20,38 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="Bills">
+      <EntityTypeMapping TypeName="gShopModel.Bill">
+        <MappingFragment StoreEntitySet="Bill">
+          <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+          <ScalarProperty Name="CreateDateTime" ColumnName="CreateDateTime" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="pdt_QuantityCount" ColumnName="pdt_QuantityCount" />
+          <ScalarProperty Name="pdt_Count" ColumnName="pdt_Count" />
+          <ScalarProperty Name="bill_Date" ColumnName="bill_Date" />
+          <ScalarProperty Name="customer_Address" ColumnName="customer_Address" />
+          <ScalarProperty Name="customer_Mobile" ColumnName="customer_Mobile" />
+          <ScalarProperty Name="customer_Name" ColumnName="customer_Name" />
+          <ScalarProperty Name="bill_Id" ColumnName="bill_Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Bill_Details">
+      <EntityTypeMapping TypeName="gShopModel.Bill_Details">
+        <MappingFragment StoreEntitySet="Bill_Details">
+          <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+          <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+          <ScalarProperty Name="pdt_Discount" ColumnName="pdt_Discount" />
+          <ScalarProperty Name="pdt_Qauntity" ColumnName="pdt_Qauntity" />
+          <ScalarProperty Name="pdt_GST" ColumnName="pdt_GST" />
+          <ScalarProperty Name="pdt_Rate" ColumnName="pdt_Rate" />
+          <ScalarProperty Name="pdt_Name" ColumnName="pdt_Name" />
+          <ScalarProperty Name="pdt_Id" ColumnName="pdt_Id" />
+          <ScalarProperty Name="bill_Id" ColumnName="bill_Id" />
+          <ScalarProperty Name="bill_DetailsId" ColumnName="bill_DetailsId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

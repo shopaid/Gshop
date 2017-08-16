@@ -261,6 +261,7 @@
             this.grdProductView.Name = "grdProductView";
             this.grdProductView.Size = new System.Drawing.Size(940, 295);
             this.grdProductView.TabIndex = 22;
+            this.grdProductView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.grdProductView_CellContentClick);
             this.grdProductView.SelectionChanged += new System.EventHandler(this.grdProductView_SelectionChanged);
             // 
             // btnUpdate

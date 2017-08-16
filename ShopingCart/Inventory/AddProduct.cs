@@ -240,5 +240,10 @@ namespace ShopingCart.Inventory
         {
             this.Close();
         }
+
+        private void grdProductView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

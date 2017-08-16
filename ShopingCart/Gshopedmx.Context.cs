@@ -26,5 +26,7 @@ namespace ShopingCart
         }
     
         public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<Bill> Bills { get; set; }
+        public virtual DbSet<Bill_Details> Bill_Details { get; set; }
     }
 }

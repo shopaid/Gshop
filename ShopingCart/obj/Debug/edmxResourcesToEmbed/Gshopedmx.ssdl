@@ -1,5 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="gShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="gShopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Bill">
+    <Key>
+      <PropertyRef Name="bill_Id" />
+    </Key>
+    <Property Name="bill_Id" Type="int" Nullable="false" />
+    <Property Name="customer_Name" Type="varchar" MaxLength="100" />
+    <Property Name="customer_Mobile" Type="varchar" MaxLength="100" />
+    <Property Name="customer_Address" Type="varchar(max)" />
+    <Property Name="bill_Date" Type="date" Nullable="false" />
+    <Property Name="pdt_Count" Type="int" />
+    <Property Name="pdt_QuantityCount" Type="int" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="CreateDateTime" Type="date" Nullable="false" />
+    <Property Name="UpdateDateTime" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Bill_Details">
+    <Key>
+      <PropertyRef Name="bill_DetailsId" />
+    </Key>
+    <Property Name="bill_DetailsId" Type="int" Nullable="false" />
+    <Property Name="bill_Id" Type="int" Nullable="false" />
+    <Property Name="pdt_Id" Type="nvarchar" MaxLength="100" />
+    <Property Name="pdt_Name" Type="varchar" MaxLength="100" />
+    <Property Name="pdt_Rate" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="pdt_GST" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="pdt_Qauntity" Type="int" />
+    <Property Name="pdt_Discount" Type="numeric" Precision="18" Scale="2" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="CreatedDateTime" Type="date" />
+    <Property Name="UpdateDateTime" Type="date" />
+  </EntityType>
   <EntityType Name="Product">
     <Key>
       <PropertyRef Name="Pdt_Id" />
@@ -18,7 +49,41 @@
     <Property Name="Created_DateTime" Type="date" Nullable="false" />
     <Property Name="Updated_DateTime" Type="date" Nullable="false" />
   </EntityType>
+  <Association Name="FK_Bill_Details_Bill_Details">
+    <End Role="Bill" Type="Self.Bill" Multiplicity="1" />
+    <End Role="Bill_Details" Type="Self.Bill_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Bill">
+        <PropertyRef Name="bill_Id" />
+      </Principal>
+      <Dependent Role="Bill_Details">
+        <PropertyRef Name="bill_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Bill_Details_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="Bill_Details" Type="Self.Bill_Details" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Pdt_Id" />
+      </Principal>
+      <Dependent Role="Bill_Details">
+        <PropertyRef Name="pdt_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="gShopModelStoreContainer">
+    <EntitySet Name="Bill" EntityType="Self.Bill" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Bill_Details" EntityType="Self.Bill_Details" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Bill_Details_Bill_Details" Association="Self.FK_Bill_Details_Bill_Details">
+      <End Role="Bill" EntitySet="Bill" />
+      <End Role="Bill_Details" EntitySet="Bill_Details" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Bill_Details_Product" Association="Self.FK_Bill_Details_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Bill_Details" EntitySet="Bill_Details" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>
